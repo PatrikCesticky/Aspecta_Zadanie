@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Aspecta Kubernetes Demo</title>
+</head>
+<body>
+
+<h1>Aspecta Kubernetes Demo</h1>
+
+<p>Frontend is running.</p>
+
+<h2>Backend status</h2>
+
+<pre id="backend">Loading...</pre>
+
+<script>
+fetch('/api/info')
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('backend').textContent =
+            JSON.stringify(data, null, 2);
+    })
+    .catch(error => {
+        document.getElementById('backend').textContent =
+            'Backend unavailable';
+    });
+</script>
+
+</body>
+</html>

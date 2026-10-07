@@ -1,0 +1,55 @@
+namespace: aspecta
+
+backend:
+  replicaCount: 2
+
+  image:
+    repository: ghcr.io/patrikcesticky/aspecta-backend
+    tag: "initial"
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 8000
+    targetPort: 8000
+
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 200m
+      memory: 128Mi
+
+frontend:
+  replicaCount: 2
+
+  image:
+    repository: ghcr.io/patrikcesticky/aspecta-frontend
+    tag: "initial"
+    pullPolicy: IfNotPresent
+
+  service:
+    type: ClusterIP
+    port: 80
+    targetPort: 80
+
+  resources:
+    requests:
+      cpu: 25m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 64Mi
+
+config:
+  environment: production
+  appMessage: "Hello from Aspecta Backend"
+
+secret:
+  apiKey: "change-me"
+
+ingress:
+  enabled: true
+  className: nginx
+  host: aspecta.local
