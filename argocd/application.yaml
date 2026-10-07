@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aspecta
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/PatrikCesticky/Aspecta_Zadanie.git
+    targetRevision: main
+    path: helm/aspecta
+
+    helm:
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: aspecta
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
