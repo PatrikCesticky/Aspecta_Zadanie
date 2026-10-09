@@ -1,25 +1,15 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: restrict-backend-ingress
+  name: restrict-frontend-ingress
   namespace: {{ .Values.namespace }}
 spec:
   podSelector:
     matchLabels:
-      app: backend
-
+      app: frontend
   policyTypes:
     - Ingress
-
   ingress:
-    - from:
-        - podSelector:
-            matchLabels:
-              app: frontend
-      ports:
-        - protocol: TCP
-          port: {{ .Values.backend.service.targetPort }}
-
     - from:
         - namespaceSelector:
             matchLabels:
@@ -29,4 +19,4 @@ spec:
               app.kubernetes.io/component: controller
       ports:
         - protocol: TCP
-          port: {{ .Values.backend.service.targetPort }}
+          port: {{ .Values.frontend.service.targetPort }}
