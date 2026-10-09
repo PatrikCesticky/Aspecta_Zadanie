@@ -3,7 +3,7 @@ backend:
   replicaCount: 2
   image:
     repository: ghcr.io/patrikcesticky/aspecta-backend
-    tag: "9374a3c7194e"
+    tag: "5d99937a4d0d"
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
